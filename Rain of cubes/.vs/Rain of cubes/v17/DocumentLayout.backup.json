@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Unity projects\\Rain of cubes\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{985FDB4B-108F-D101-1316-45C28D1C7E1F}|Assembly-CSharp.csproj|c:\\unity projects\\rain of cubes\\assets\\scripts\\cube.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{985FDB4B-108F-D101-1316-45C28D1C7E1F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cube.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{985FDB4B-108F-D101-1316-45C28D1C7E1F}|Assembly-CSharp.csproj|c:\\unity projects\\rain of cubes\\assets\\scripts\\utilites.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{985FDB4B-108F-D101-1316-45C28D1C7E1F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\utilites.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{985FDB4B-108F-D101-1316-45C28D1C7E1F}|Assembly-CSharp.csproj|C:\\Unity projects\\Rain of cubes\\assets\\scripts\\cubespawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{985FDB4B-108F-D101-1316-45C28D1C7E1F}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\cubespawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Utilites.cs",
+              "DocumentMoniker": "C:\\Unity projects\\Rain of cubes\\Assets\\Scripts\\Utilites.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Utilites.cs",
+              "ToolTip": "C:\\Unity projects\\Rain of cubes\\Assets\\Scripts\\Utilites.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Utilites.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T20:22:47.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Cube.cs",
+              "DocumentMoniker": "C:\\Unity projects\\Rain of cubes\\Assets\\Scripts\\Cube.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Cube.cs",
+              "ToolTip": "C:\\Unity projects\\Rain of cubes\\Assets\\Scripts\\Cube.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Cube.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T12:17:31.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CubeSpawner.cs",
+              "DocumentMoniker": "C:\\Unity projects\\Rain of cubes\\Assets\\Scripts\\CubeSpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CubeSpawner.cs",
+              "ToolTip": "C:\\Unity projects\\Rain of cubes\\Assets\\Scripts\\CubeSpawner.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CubeSpawner.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAqwCMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-24T11:52:38.34Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
