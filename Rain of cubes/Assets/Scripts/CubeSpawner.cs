@@ -1,67 +1,84 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class CubeSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _cubePrefab;
+    [SerializeField] private Cube _cube;
     [SerializeField] private float _repeatRate;
     [SerializeField] private int _poolSize;
     [SerializeField] private int _maxPoolSize;
     [SerializeField] private Vector3 spawnAreaCenter;
     [SerializeField] private Vector3 spawnAreaSize;
 
-    private ObjectPool<GameObject> _cubePool;
+    private ObjectPool<Cube> _cubePool;
 
     private void Awake()
     {
-        _cubePool = new ObjectPool<GameObject>(
-            createFunc: () => Instantiate(_cubePrefab),
-            actionOnGet: (obj) => ActionOnGet(obj),
-            actionOnRelease: (obj) => obj.SetActive(false),
-            actionOnDestroy: (obj) => Destroy(obj),
+        _cubePool = new ObjectPool<Cube>(
+            createFunc: () =>
+            {
+                GameObject obj = Instantiate(_cube.gameObject);
+                return obj.GetComponent<Cube>();
+            },
+            actionOnGet: (cube) => ActionOnGet(cube),
+            actionOnRelease: (cube) => cube.gameObject.SetActive(false),
+            actionOnDestroy: (cube) => Destroy(cube.gameObject),
             collectionCheck: true,
             defaultCapacity: _poolSize,
             maxSize: _maxPoolSize
-            );
+        );
     }
 
-    private void ActionOnGet(GameObject obj)
+    private void ActionOnGet(Cube cube)
     {
         Vector3 randomPosition = new Vector3(
-                Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2),
-                Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2),
-                Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2)
-            );
+            Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2),
+            Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2),
+            Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2)
+        );
 
-        obj.transform.position = spawnAreaCenter + randomPosition;
-        obj.transform.rotation = Quaternion.identity;
-        Rigidbody rigidBody = obj.GetComponent<Rigidbody>();
+        cube.transform.position = spawnAreaCenter + randomPosition;
+        cube.transform.rotation = Quaternion.identity;
 
-        if (rigidBody != null)
-        {
-            rigidBody.velocity = Vector3.zero;
-            rigidBody.angularVelocity = Vector3.zero;
-        }
+        SetDefaultPhysicsSettings(cube);
+        cube.ResetColor();
+        cube.ResetCollisionState();
+        cube.gameObject.SetActive(true);
 
-        Cube cubeComponent = obj.GetComponent<Cube>();
-
-        if (cubeComponent != null)
-        {
-            cubeComponent.ResetColor();
-            cubeComponent.ResetCollisionState();
-            cubeComponent.SetPool(_cubePool);
-        }
-
-        obj.SetActive(true);
+        cube.TimerExpired += HandleTimerExpired;
     }
 
     private void Start()
     {
-        InvokeRepeating(nameof(GetCube), 0.0f, _repeatRate);
+        StartCoroutine(SpawnCubes());
+    }
+
+    private void HandleTimerExpired(Cube cube)
+    {
+        _cubePool.Release(cube);
+    }
+
+    private IEnumerator SpawnCubes()
+    {
+        while (true)
+        {
+            GetCube();
+            yield return new WaitForSeconds(_repeatRate);
+        }
+    }
+
+    private void SetDefaultPhysicsSettings(Cube cube)
+    {
+        Rigidbody rigidBody = cube.GetComponent<Rigidbody>();
+
+        rigidBody.velocity = Vector3.zero;
+        rigidBody.angularVelocity = Vector3.zero;
     }
 
     private void GetCube()
     {
-        _cubePool.Get();
+        Cube cube = _cubePool.Get();
     }
 }
