@@ -6,10 +6,13 @@ using UnityEngine.Pool;
 [RequireComponent(typeof(Rigidbody))]
 public class Cube : MonoBehaviour
 {
+    [SerializeField] private LayerMask _platformLayer;
+
     private Renderer _cubeRenderer;
     private bool _isFirstCollision = true;
     public event Action<Cube> TimerExpired;
-
+    public event Action<Cube> ColorChanged;
+    public Renderer CubeRenderer { get => _cubeRenderer; }
     public void ResetColor()
     {
         _cubeRenderer.material.color = Color.white;
@@ -26,11 +29,6 @@ public class Cube : MonoBehaviour
         _cubeRenderer.material = new Material(_cubeRenderer.sharedMaterial);
     }
 
-    private void SetRandomColor()
-    {
-        _cubeRenderer.material.color = UnityEngine.Random.ColorHSV();
-    }
-
     public IEnumerator StartTimer()
     {
         float minRandomRange = 2f;
@@ -42,10 +40,13 @@ public class Cube : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (_isFirstCollision && collision.collider.CompareTag("Platform"))
+        int layer = collision.collider.gameObject.layer;
+        
+        if (_isFirstCollision && ((1 << layer) & _platformLayer.value) != 0)
         {
-            SetRandomColor();
+            ColorChanged?.Invoke(this);
             StartCoroutine(StartTimer());
+            _isFirstCollision = false;
         }
     }
 }

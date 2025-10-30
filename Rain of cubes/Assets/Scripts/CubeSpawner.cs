@@ -11,8 +11,10 @@ public class CubeSpawner : MonoBehaviour
     [SerializeField] private int _maxPoolSize;
     [SerializeField] private Vector3 spawnAreaCenter;
     [SerializeField] private Vector3 spawnAreaSize;
+    private float _halfAreaScale = 0.5f;
 
     private ObjectPool<Cube> _cubePool;
+    public event System.Action<Cube> CubeSpawned;
 
     private void Awake()
     {
@@ -34,10 +36,11 @@ public class CubeSpawner : MonoBehaviour
     private void ActionOnGet(Cube cube)
     {
         Vector3 randomPosition = new Vector3(
-            Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2),
-            Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2),
-            Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2)
+        Random.Range(-spawnAreaSize.x * _halfAreaScale, spawnAreaSize.x * _halfAreaScale),
+        Random.Range(-spawnAreaSize.y * _halfAreaScale, spawnAreaSize.y * _halfAreaScale),
+        Random.Range(-spawnAreaSize.z * _halfAreaScale, spawnAreaSize.z * _halfAreaScale)
         );
+
 
         cube.transform.position = spawnAreaCenter + randomPosition;
         cube.transform.rotation = Quaternion.identity;
@@ -48,6 +51,7 @@ public class CubeSpawner : MonoBehaviour
         cube.gameObject.SetActive(true);
 
         cube.TimerExpired += HandleTimerExpired;
+         CubeSpawned?.Invoke(cube);
     }
 
     private void Start()
@@ -62,10 +66,12 @@ public class CubeSpawner : MonoBehaviour
 
     private IEnumerator SpawnCubes()
     {
-        while (true)
+        var WaitForSeconds = new WaitForSeconds(_repeatRate);
+
+        while (enabled)
         {
             GetCube();
-            yield return new WaitForSeconds(_repeatRate);
+            yield return WaitForSeconds;
         }
     }
 
